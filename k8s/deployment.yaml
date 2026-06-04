@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: studenthub}
+spec:
+  replicas: 2
+  selector: {matchLabels: {app: studenthub}}
+  template:
+    metadata: {labels: {app: studenthub}}
+    spec:
+      containers:
+      - name: studenthub
+        image: studenthub:1.0
+        ports:
+        - containerPort: 8080
