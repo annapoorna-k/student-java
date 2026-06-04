@@ -1,2 +1,2 @@
-# studenthub-java
-studenthub-java
+StudentHub-Java 
+StudentHub-Java is a lightweight Student Management REST API built using Java Spring Boot, MySQL, Docker, and Kubernetes. The project demonstrates RESTful CRUD operations, database integration with JPA, health monitoring using Spring Boot Actuator, containerization with Docker, and scalable deployment on Kubernetes. It serves as a practical reference for modern Java microservice development and cloud-native application deployment.
