@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: Service
-metadata: {name: studenthub-service}
+metadata:
+  name: studenthub-service
 spec:
-  selector: {app: studenthub}
+  selector:
+    app: studenthub
   ports:
   - port: 80
     targetPort: 8080
