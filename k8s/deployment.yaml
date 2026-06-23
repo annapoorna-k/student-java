@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: studenthub
-        image: akshithavarkala/studenthub-java-studenthub
+        image: yashuraj/student-java-studenthub
         ports:
         - containerPort: 8000
         env:
