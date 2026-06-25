@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: studenthub
+  name: studentjava
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: studenthub
+      app: studentjava
   template:
     metadata:
       labels:
-        app: studenthub
+        app: studentjava
     spec:
       containers:
-      - name: studenthub
-        image: yashuraj/student-java-studenthub
+      - name: studentjava
+        image: yashuraj/javapjt:latest
         ports:
-        - containerPort: 8000
+        - containerPort: 8002
         env:
         - name: DB_HOST
           value: mysql

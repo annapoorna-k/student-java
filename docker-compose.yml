@@ -3,11 +3,11 @@ version: "3.9"
 services:
   mysql:
     image: mysql:8
-    container_name: studenthub-mysql
+    container_name: studentjava-mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: studentdb
+      MYSQL_DATABASE: studentjavadb
     ports:
       - "3306:3306"
     volumes:
@@ -15,7 +15,7 @@ services:
 
   studenthub:
     build: .
-    container_name: studenthub-app
+    container_name: studentjava-app
     restart: always
     depends_on:
       - mysql
@@ -24,7 +24,7 @@ services:
       DB_USER: root
       DB_PASSWORD: password
     ports:
-      - "8001:8080"
+      - "8002:8080"
 
 volumes:
   mysql_data:
