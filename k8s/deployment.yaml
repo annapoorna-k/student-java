@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: studenthub
-        image: yashuraj/student-java-studenthub
+        image: acrjaa.azurecr.io/student-java
         ports:
         - containerPort: 8000
         env:
