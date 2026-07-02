@@ -1,0 +1,38 @@
+trigger:
+ branches:
+  include:
+   - main
+variable:
+ acrServiceConnection:
+ acrSubsription:
+ imageRegistry:
+ containerRegistry:
+ aksResourceGroup:
+ aksClustername:
+ imageTag: '$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displyName: build & push Image
+jobs:
+- job: Build
+   pool:
+    vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displyName: Build and push docker image
+    - task: publishPipelineArtifactryRegistry
+      displayname: publishKubernets Manifest
+- stage: Deploy
+  displayName: Deploy to Aks
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+  - job: Deploy
+    displyname: deploy to aks
+  
+  
+
+    
+
+ 
