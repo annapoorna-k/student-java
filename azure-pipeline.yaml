@@ -58,7 +58,7 @@ stages:
       displayName: Deploy to AKS
       inputs:
         action: deploy
-        kubernetesServiceConnection: 'aks-service-connection'
+        kubernetesServiceConnection: 'aks-java-connection'
         namespace: default
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yaml
