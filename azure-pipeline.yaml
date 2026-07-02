@@ -3,12 +3,12 @@ trigger:
   include:
    - main
 variable:
- acrServiceConnection:
- acrSubsription:
- imageRegistry:
- containerRegistry:
- aksResourceGroup:
- aksClustername:
+ acrServiceConnection: 'acr-jav-service'
+ acrSubsription: 'acr-java-connection'
+ imageRegistry: 'student-java'
+ containerRegistry: 'acrjaa'
+ aksResourceGroup: 'rg-ja'
+ aksClustername: 'aks-java'
  imageTag: '$(Build.BuildId)'
 
 stages:
