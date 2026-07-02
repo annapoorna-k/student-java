@@ -1,38 +1,67 @@
 trigger:
- branches:
-  include:
-   - main
-variable:
- acrServiceConnection: 'acr-jav-service'
- acrSubsription: 'acr-java-connection'
- imageRegistry: 'student-java'
- containerRegistry: 'acrjaa'
- aksResourceGroup: 'rg-ja'
- aksClustername: 'aks-java'
- imageTag: '$(Build.BuildId)'
+  branches:
+    include:
+      - main
+
+variables:
+  acrServiceConnection: 'acr-jav-service'
+  azureSubscription: 'acr-java-connection'
+  imageRepository: 'student-java'
+  containerRegistry: 'acrjaa.azurecr.io'
+  aksResourceGroup: 'rg-ja'
+  aksClusterName: 'aks-java'
+  imageTag: '$(Build.BuildId)'
 
 stages:
 - stage: Build
-  displyName: build & push Image
-jobs:
-- job: Build
-   pool:
-    vmImage: ubuntu-latest
+  displayName: Build & Push Image
+
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+
     steps:
     - task: Docker@2
-      displyName: Build and push docker image
-    - task: publishPipelineArtifactryRegistry
-      displayname: publishKubernets Manifest
+      displayName: Build and Push Docker Image
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: Dockerfile
+        containerRegistry: $(acrServiceConnection)
+        tags: |
+          $(imageTag)
+
+    - task: PublishPipelineArtifact@1
+      displayName: Publish Kubernetes Manifests
+      inputs:
+        targetPath: 'k8s'
+        artifact: manifests
+
 - stage: Deploy
-  displayName: Deploy to Aks
+  displayName: Deploy to AKS
   dependsOn: Build
   condition: succeeded()
+
   jobs:
   - job: Deploy
-    displyname: deploy to aks
-  
-  
+    displayName: Deploy to AKS
 
-    
+    pool:
+      vmImage: 'ubuntu-latest'
 
- 
+    steps:
+    - download: current
+      artifact: manifests
+
+    - task: KubernetesManifest@1
+      displayName: Deploy to AKS
+      inputs:
+        action: deploy
+        kubernetesServiceConnection: 'aks-service-connection'
+        namespace: default
+        manifests: |
+          $(Pipeline.Workspace)/manifests/deployment.yaml
+          $(Pipeline.Workspace)/manifests/service.yaml
+        containers: |
+          $(containerRegistry)/$(imageRepository):$(imageTag)
