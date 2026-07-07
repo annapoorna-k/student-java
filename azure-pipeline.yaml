@@ -4,8 +4,8 @@ trigger:
       - main
 
 variables:
-  acrServiceConnection: 'acr-jav-service'
-  azureSubscription: 'acr-java-connection'
+  acrServiceConnection: 'acr-javaproject-service'
+  azureSubscription: 'acr-javaproject-connection'
   imageRepository: 'student-javaproject'
   containerRegistry: 'acrjavapoject.azurecr.io'
   aksResourceGroup: 'rg-javaproject'
@@ -58,7 +58,7 @@ stages:
       displayName: Deploy to AKS
       inputs:
         action: deploy
-        kubernetesServiceConnection: 'aks-java-connection'
+        kubernetesServiceConnection: 'aks-javaproject-connection'
         namespace: default
         manifests: |
           $(Pipeline.Workspace)/manifests/deployment.yaml
