@@ -6,9 +6,9 @@ trigger:
 variables:
   acrServiceConnection: 'acr-jav-service'
   azureSubscription: 'acr-java-connection'
-  imageRepository: 'student-java'
-  containerRegistry: 'acrjaa.azurecr.io'
-  aksResourceGroup: 'rg-ja'
+  imageRepository: 'student-javaproject'
+  containerRegistry: 'acrjavapoject.azurecr.io'
+  aksResourceGroup: 'rg-javaproject'
   aksClusterName: 'aks-java'
   imageTag: '$(Build.BuildId)'
 
